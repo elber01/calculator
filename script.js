@@ -109,7 +109,7 @@ class Calculator{
                 console.log( `${this.a} / ${this.b} = ${this.a/this.b}`);
              }    
              else if (this.c === "x"){
-                fin =( this.axthis.b)
+                fin =( this.a*this.b)
                 result.append(fin);
                 console.log( `${this.a} * ${this.b} = ${this.a*this.b}`);
              }   

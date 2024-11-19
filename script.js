@@ -99,16 +99,19 @@ class Calculator{
         this.c = operador;
         this.calculate = function(){
             if (this.c === "xx"){
+                let fin = document.createElement('h1');
                 fin =( this.a**this.b)
                 result.append(fin);
                 console.log( `${this.a} ** ${this.b} = ${this.a**this.b}`);
             } 
             else if (this.c === "/"){
+                let fin = document.createElement('h1');
                 fin =( this.a/this.b)
                 result.append(fin);
                 console.log( `${this.a} / ${this.b} = ${this.a/this.b}`);
              }    
              else if (this.c === "x"){
+                let fin = document.createElement('h1');
                 fin =( this.a*this.b)
                 result.append(fin);
                 console.log( `${this.a} * ${this.b} = ${this.a*this.b}`);
@@ -120,6 +123,7 @@ class Calculator{
                 console.log( `${this.a} + ${this.b} = ${this.a+this.b}`);
              }     
              else if (this.c === "-"){
+                let fin = document.createElement('h1');
                 fin =( this.a-this.b)
                 result.append(fin);
                 console.log( `${this.a} - ${this.b} = ${this.a-this.b}`);

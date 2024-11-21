@@ -3,13 +3,9 @@ const contain =  document.querySelector('.contain1');
 const result =  document.querySelector('.result');
 const bc = document.querySelector('.buttons-contain');
 let resultado = document.createElement('h1');
-//ADDING ALL QUERY SELECTORS BUTTONS
-const zero = document.querySelector('.zero');
-const one = document.querySelector('.one');
-const two = document.querySelector('.two');
-const three = document.querySelector('.three');
 
 //DEFINING CALC CONTAINERS AREAS
+
 //MAIN CONTAINER
 contain.style.width = '300px';
 contain.style.height = '400px';
@@ -22,28 +18,20 @@ bc.style.height = '290px';
 
 //DEFINING VARIABLES
 let valueA = 0;
-let valueB = "";
-let str = ""
+let valueB = 0;
+let str = 0
 let operador ="";
-///CALC MAIN FUNCTIONS 
-function add(a,b){
-    let res=Math.floor(a+b);
-    console.log (res);
-}
-function subtract(a,b){
-    let res=Math.floor(a-b);
-    console.log (res);
-}
-function multiply(a,b){
-    let res=Math.floor(a*b);
-    console.log (res);
-}
-function divive(a,b){
-    let res=Math.floor(a/b);
-    console.log (res);
-}
-   /*function operate(valueA,valueB){*/  
 
+function clear(){
+    result.textContent="";
+    valueA = 0;
+    valueB = 0;
+    str= "";
+    operador = "";
+    resultado =  "";
+    result.appendChild(resultado);
+
+}
 const NUMBER_KEYS= new Set([
     '0','1','2','3','4','5','6','7','8','9','1','.',
 ]) ;
@@ -58,6 +46,52 @@ const CODI_KEYS = new Set([
 
 
 const buttons =  document.querySelectorAll('button');
+
+///VERIFYING IF A KEY IS PRESS ON THE KEYBOARD
+document.addEventListener('keydown', (event)=>{
+    key =  event.key;
+    if (key === 'Enter') key =  '=';
+    if (key === 'Backspace') key = 'DEL';
+    if (key === '*') key = 'x';
+   
+    if (NUMBER_KEYS.has(key)){
+        resultado = document.createElement('h1');
+        resultado.textContent= key;
+        result.appendChild(resultado);
+
+    }
+    else if (OPER_KEYS.has(key)){
+        resultado = document.createElement('h1');
+        resultado.textContent= key;
+        if (key !== '='){
+            result.appendChild(resultado);
+        }
+        else if ( key === '=') {
+            str = result.textContent;
+            operator(str);
+          }
+    }
+    else if (CODI_KEYS.has(key)){
+        if  (key === 'AC'){
+            clear();
+        }
+        else if (key === 'DEL'){
+            result.textContent= result.textContent.slice(0,-1);
+        }
+        else if (key === '+/-'){
+            let currentValue =  parseFloat(result.textContent);
+            if (!isNaN(currentValue)){
+                currentValue = - currentValue;
+                result.textContent = currentValue;
+            }
+            else {
+                alert('No hay un numero valido en pantalla');
+            }
+        }
+}})
+
+
+///VERIFYING IF A BUTTON WAS CLICK ON THE HTML
 buttons.forEach(button=>{
         button.addEventListener('click',()=>{
             
@@ -76,17 +110,30 @@ buttons.forEach(button=>{
                 resultado.textContent= key;
                 if (key !== '='){
                     result.appendChild(resultado);
-                    console.log ('presion un operador');
-                    console.log (key);
+                  
                 }
                 else if ( key === '=') {
                     str = result.textContent;
-                    console.log (result.textContent);
                     operator(str);
-                 
-                }
+                 }
             }
             else if (CODI_KEYS.has(key)){
+                if  (key === 'AC'){
+                    clear();
+                }
+                else if (key === 'DEL'){
+                    result.textContent= result.textContent.slice(0,-1);
+                }
+                else if (key === '+/-'){
+                    let currentValue =  parseFloat(result.textContent);
+                    if (!isNaN(currentValue)){
+                        currentValue = - currentValue;
+                        result.textContent = currentValue;
+                    }
+                    else {
+                        alert('No hay un numero valido en pantalla');
+                    }
+                }
                 console.log ('presiono una tecla de accion');
             }
         });
@@ -99,34 +146,41 @@ class Calculator{
         this.c = operador;
         this.calculate = function(){
             if (this.c === "xx"){
-                let fin = document.createElement('h1');
-                fin =( this.a**this.b)
-                result.append(fin);
-                console.log( `${this.a} ** ${this.b} = ${this.a**this.b}`);
+                result.textContent = valorA= ( this.a**this.b);
+                valorB= 0;                    
+                operador = "";
+                  
             } 
             else if (this.c === "/"){
-                let fin = document.createElement('h1');
-                fin =( this.a/this.b)
-                result.append(fin);
-                console.log( `${this.a} / ${this.b} = ${this.a/this.b}`);
+                if (this.b !== 0) {
+                    result.textContent = valorA= ( this.a/this.b);
+                    valorB= 0;                    
+                    operador = "";
+
+                } else {
+                    result.textContent = "Error: División por 0";
+                }
+               
+                
              }    
              else if (this.c === "x"){
-                let fin = document.createElement('h1');
-                fin =( this.a*this.b)
-                result.append(fin);
-                console.log( `${this.a} * ${this.b} = ${this.a*this.b}`);
+                result.textContent = valorA= ( this.a*this.b);
+                valorB= 0;                    
+                operador = "";
+      
              }   
              else if (this.c === "+"){
-                let fin = document.createElement('h1');
-                fin =( this.a+this.b)
-                result.append(fin);
-                console.log( `${this.a} + ${this.b} = ${this.a+this.b}`);
+                
+                result.textContent = valorA= ( this.a+this.b);
+                valorB= 0;                    
+                operador = "";
+           
              }     
              else if (this.c === "-"){
-                let fin = document.createElement('h1');
-                fin =( this.a-this.b)
-                result.append(fin);
-                console.log( `${this.a} - ${this.b} = ${this.a-this.b}`);
+
+                result.textContent = valorA= (this.a-this.b);
+                valorB= 0;
+             
              }                      
         };
     }
@@ -135,13 +189,13 @@ class Calculator{
 function operator(){
     for (let char of str){if (isNaN(char)){operador += char;}}
 // Paso 1: Dividir la cadena por el operador "+"
-let parts = str.split(operador);
+let parts = str.match(/([+-]?\d*\.?\d+)/g);
 // Paso 2: Convertir las partes a números
-let valorA = parseInt(parts[0]);
-let valorB = parseInt(parts[1]);
+let valorA = parseFloat(parts[0]);
+let valorB = parseFloat(parts[1]);
 // Paso 3: Crear una instancia de la clase Calculator y pasar los valores
 let powerCalc =  new Calculator();
 powerCalc.powerCalc (valorA,valorB,operador);
-let result1 = powerCalc.calculate(str); 
-console.log (result1);
+let result = powerCalc.calculate(str); 
+console.log (result);
 }
